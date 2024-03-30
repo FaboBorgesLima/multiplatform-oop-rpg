@@ -26,8 +26,9 @@ export class Defense implements Action {
                 return {
                     getDamage() {
                         return (
+                            action.apply(thisAction).getDamage() -
                             action.apply(thisAction).getDamage() *
-                            (thisAction.entity.getDefense() / 100)
+                                (thisAction.entity.getDefense() / 100)
                         );
                     },
                 };

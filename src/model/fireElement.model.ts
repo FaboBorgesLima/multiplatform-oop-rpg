@@ -10,7 +10,7 @@ export class FireElement implements NatureElement {
 
     constructor(private entity: Entity) {}
 
-    factory(actionType: ActionsT): Action {
+    actionFactory(actionType: ActionsT): Action {
         switch (actionType) {
             case "attack":
                 return new Attack(this, this.entity);

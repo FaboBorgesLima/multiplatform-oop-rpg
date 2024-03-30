@@ -14,7 +14,7 @@ export class WaterElement implements NatureElement {
         return elementT == "fire";
     }
 
-    factory(actionType: ActionsT): Action {
+    actionFactory(actionType: ActionsT): Action {
         switch (actionType) {
             case "attack":
                 return new Attack(this, this.entity);

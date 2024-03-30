@@ -3,8 +3,8 @@ import { ElementsT, NatureElement } from "./natureElement.model";
 import { Entity } from "./entity.interface";
 
 export interface Action {
-    element: NatureElement;
-    type: ActionsT;
+    readonly element: NatureElement;
+    readonly type: ActionsT;
     receive(action: Action): Effect;
     apply(action: Action): Effect;
 }

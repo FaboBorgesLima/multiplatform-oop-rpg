@@ -24,10 +24,10 @@ export class Attack implements Action {
                     },
                 };
             case "attack":
-                return action.apply(action);
+                return action.apply(this);
             case "counter-attack":
                 if (this.element.isWeak(action.element.type))
-                    return action.apply(action);
+                    return action.apply(this);
                 else {
                     return {
                         getDamage() {
