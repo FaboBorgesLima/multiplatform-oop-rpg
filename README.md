@@ -6,19 +6,22 @@
 
 ## Game rules
 
-Each entity will trigger a movement and a element at the same time .
+    -   There are two lines and four columns of cards , the cards are made of souls, meat, blood and bones. Souls can't be recovered once they are used.
+    -   The players life will be reseted in each battle.
 
-    -   Attack :
-        -   vs Attack: deal total damage.
-        -   vs Defense: deal partial damage, but deal two times more damage if against weak element.
-        -   vs Counter-attack: does total damage if counter is not from a weak element, if it is from a weak element the entity will recive the sum of both attack points.
+### Cards
 
-    -   Defense :
-        -   vs Attack: will recive less damage based on defense points.
-        -   vs Defense: no damage .
-        -   vs Counter-attack: no damage .
+    -   Each card have life points and damage points, some have special properties.
+    -   If a card is killed the killer will recive blood and the owner of that card will recive bones.
+    -   Cards that are behind another card can't be see.
+    -   Each round you can place a card or buy a card.
+    -   Cards can be buyed in the shop.
+    -   Some cards can generate ressources.
 
-    -   Counter-atack :
-        -   vs Attack: will recive total damage if attack is not from weak element, if it is the entity will deal damage that is equals to the sum of both entities combined .
-        -   vs Defense: no damage .
-        -   vs Counter-attack: no damage .
+### Resources
+
+    -   All resources except souls can be gained during the match.
+
+### Damage
+
+    -   If every card in a column die the damage will be recived by the player , making it lose souls.
