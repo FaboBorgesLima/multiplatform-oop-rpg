@@ -11,6 +11,6 @@ export class ButcherCard extends BaseCard {
 
         this.setDamage(0);
 
-        this.setGeneration(new Resources(0, 0, 0, 1));
+        this.setGeneration(new Resources(0, 0, 0, 2));
     }
 }

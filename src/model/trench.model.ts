@@ -11,19 +11,19 @@ export class Trench {
     }
 
     public toString(): string {
-        let str = "";
+        return `${this.getLiveCards()} live cards`;
+    }
+
+    private getLiveCards(): number {
+        let liveCards = 0;
 
         for (let col = 0; col < this.cardSet.length; col++) {
             for (let row = 0; row < this.cardSet[col].length; row++) {
-                const card = this.cardSet[col][row];
-
-                if (card) str += card.toString();
-                else str += "\nempty\n";
+                if (this.cardSet[col][row]) liveCards++;
             }
-            str += "\n";
         }
 
-        return str;
+        return liveCards;
     }
 
     private createEmptyCardSet(): CardSet {
@@ -40,20 +40,8 @@ export class Trench {
 
     /**
      *
-     * @returns the number of cards that died
+     * @returns
      */
-    private removeDeadCards(): number {
-        let removedCards = 0;
-
-        for (let i = 0; i < this.cardSet.length; i++)
-            for (let j = 0; j < this.cardSet[i].length; i++)
-                if (this.cardSet[i][j] && !this.cardSet[i][j]?.getIsAlive()) {
-                    this.cardSet[i][j] = undefined;
-                    removedCards++;
-                }
-
-        return removedCards;
-    }
 
     attack(): number[] {
         const damages: number[] = [];
@@ -85,12 +73,13 @@ export class Trench {
     /**
      *
      * @param col
-     * @returns the leftover attack
+     * @returns the leftover attack and dead cards num
      *
      * recives the attack and removes the dead cards from the col
      */
-    private reciveAttackOnCol(col: number, attack: number): number {
-        let leftoverAttack = attack;
+    private reciveAttackOnCol(col: number, attack: number): [number, number] {
+        let leftoverAttack = attack,
+            deadCards = 0;
 
         for (let row = 0; row < this.cardSet[col].length; row++) {
             const card = this.cardSet[col][row];
@@ -100,28 +89,45 @@ export class Trench {
 
                 if (!card.getIsAlive()) {
                     this.cardSet[col][row] = undefined;
+                    deadCards++;
                 }
             }
         }
 
-        return leftoverAttack;
+        return [leftoverAttack, deadCards];
     }
 
     /**
      *
-     * @returns the number of cards that died and the amount of leftover damage
+     * @returns  the amount of leftover damage and the number of cards that died
      * @param attack is an array with the attacks by col
      */
-    reciveAttack(attack: number[]): number {
-        let leftoverAttack = 0;
+    reciveAttack(attack: number[]): [number, number] {
+        let leftoverAttack = 0,
+            deads = 0;
 
         for (let col = 0; col < this.cardSet.length; col++) {
             const attackOnCol = attack[col];
 
-            leftoverAttack += this.reciveAttackOnCol(col, attackOnCol);
+            const [leftoverFromCol, deadsFromCol] = this.reciveAttackOnCol(
+                col,
+                attackOnCol
+            );
+            leftoverAttack += leftoverFromCol;
+            deads += deadsFromCol;
         }
 
-        return leftoverAttack;
+        return [leftoverAttack, deads];
+    }
+
+    hasAliveCard(): boolean {
+        for (let col = 0; this.cardSet.length > col; col++) {
+            for (let row = 0; this.cardSet[col].length > row; row++) {
+                if (this.cardSet[col][row]?.getIsAlive()) return true;
+            }
+        }
+
+        return false;
     }
 
     getTotalGeneration(): Resources {

@@ -8,6 +8,7 @@ export class BaseCard {
     private price: Resources;
     private generation: Resources = new Resources(0, 0, 0, 0);
     private description: string = "";
+    static readonly CARD_WIDTH = 40;
 
     protected constructor(name: string, description: string, price: Resources) {
         this.description = description;
@@ -44,8 +45,34 @@ export class BaseCard {
         return this.price;
     }
 
+    public static emptyToString(): string {
+        let output = "";
+
+        for (let i = 0; i < 4; i++) {
+            output += this.fillStringToCardWidth("") + "|\n";
+        }
+
+        return output + "\n";
+    }
+
     public toString(): string {
-        return `\n${this.name}\n${this.description}\nHp: ${this.life}/${this.initialLife}\n${this.damage} damage\n`;
+        return `\n${BaseCard.fillStringToCardWidth(
+            this.name
+        )}|\n${BaseCard.fillStringToCardWidth(
+            this.description
+        )}|\n${BaseCard.fillStringToCardWidth(
+            `Hp: ${this.life}/${this.initialLife}`
+        )}|\n${BaseCard.fillStringToCardWidth(`${this.damage} damage`)}|\n`;
+    }
+
+    private static fillStringToCardWidth(str: string): string {
+        let output = str;
+
+        while (output.length < this.CARD_WIDTH) {
+            output += " ";
+        }
+
+        return output;
     }
 
     protected setDamage(damage: number): boolean {
