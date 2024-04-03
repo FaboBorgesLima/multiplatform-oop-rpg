@@ -65,4 +65,12 @@ export class Resources {
             this.meat < resouces.meat
         );
     }
+    public isSmallerOrEqual(resouces: Resources): boolean {
+        return (
+            this.souls <= resouces.souls &&
+            this.blood <= resouces.blood &&
+            this.bones <= resouces.bones &&
+            this.meat <= resouces.meat
+        );
+    }
 }
