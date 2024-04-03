@@ -1,3 +1,4 @@
+import { BaseCard } from "./baseCard.model";
 import { Resources } from "./resources.model";
 import { Trench } from "./trench.model";
 
@@ -8,6 +9,10 @@ export class Challenger {
     constructor(resources: Resources, trench: Trench) {
         this.resources = resources;
         this.trench = trench;
+    }
+
+    toString(): string {
+        return `${this.trench.toString()}\n${this.resources.toString()}`;
     }
 
     attack(): number[] {
@@ -42,7 +47,28 @@ export class Challenger {
     getResources(): Resources {
         return this.resources;
     }
-    getTrench(): Trench {
-        return this.trench;
+
+    generateResources(): void {
+        this.resources = Resources.add(
+            this.resources,
+            this.trench.getTotalGeneration()
+        );
+    }
+
+    buyCard(card: BaseCard, row: number, col: number): boolean {
+        if (
+            card.getPrice().isSmallerOrEqual(this.resources) &&
+            this.resources.getSouls() > card.getPrice().getSouls() &&
+            this.trench.insertCard(card, row, col)
+        ) {
+            this.resources = Resources.subtract(
+                this.resources,
+                card.getPrice()
+            );
+
+            return true;
+        }
+
+        return false;
     }
 }
