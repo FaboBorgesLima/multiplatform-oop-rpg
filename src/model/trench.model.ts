@@ -62,9 +62,9 @@ export class Trench {
         let attack: number = 0;
 
         for (let row = 0; row < this.cardSet[col].length; row++) {
-            const cardAttack = this.cardSet[col][row]?.getDamage();
+            const card = this.cardSet[col][row];
 
-            if (cardAttack) return cardAttack;
+            if (card) return card.getDamage();
         }
 
         return attack;
