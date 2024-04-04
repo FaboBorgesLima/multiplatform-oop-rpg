@@ -57,7 +57,7 @@ export class Challenger {
 
     buyCard(card: BaseCard, row: number, col: number): boolean {
         if (
-            card.getPrice().isSmallerOrEqual(this.resources) &&
+            card.getPrice().isAllSmallerOrEqual(this.resources) &&
             this.resources.getSouls() > card.getPrice().getSouls() &&
             this.trench.insertCard(card, row, col)
         ) {

@@ -57,7 +57,7 @@ export class Resources {
         );
     }
 
-    public isSmaller(resouces: Resources): boolean {
+    public isAllSmaller(resouces: Resources): boolean {
         return (
             this.souls < resouces.souls &&
             this.blood < resouces.blood &&
@@ -65,7 +65,16 @@ export class Resources {
             this.meat < resouces.meat
         );
     }
-    public isSmallerOrEqual(resouces: Resources): boolean {
+
+    public isAllEqual(resouces: Resources): boolean {
+        return (
+            this.souls == resouces.souls &&
+            this.blood == resouces.blood &&
+            this.bones == resouces.bones &&
+            this.meat == resouces.meat
+        );
+    }
+    public isAllSmallerOrEqual(resouces: Resources): boolean {
         return (
             this.souls <= resouces.souls &&
             this.blood <= resouces.blood &&
