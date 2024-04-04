@@ -126,6 +126,6 @@ export class BaseCard {
 
         if (remainingLife > 0) return 0;
 
-        return Math.trunc(remainingLife);
+        return Math.abs(remainingLife);
     }
 }

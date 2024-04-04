@@ -2,6 +2,17 @@ import { describe, expect, test } from "@jest/globals";
 import { Resources } from "../model/resources.model";
 
 describe("resources tests", () => {
+    test("getters", () => {
+        const res = new Resources(1, 2, 3, 4);
+
+        expect(res.getSouls()).toBe(1);
+
+        expect(res.getBlood()).toBe(2);
+
+        expect(res.getBones()).toBe(3);
+
+        expect(res.getMeat()).toBe(4);
+    });
     test("is all equal", () => {
         const res = new Resources(1, 2, 3, 4);
         const resEqual = new Resources(1, 2, 3, 4);
