@@ -1,3 +1,3 @@
 import { Challenger } from "./challenger.model";
 
-export class Table {}
+export class BattleField {}

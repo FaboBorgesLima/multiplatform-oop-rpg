@@ -2,7 +2,7 @@
 
 ## Repository link
 
-[https://github.com/FaboBorgesLima/oop-node-rpg](https://github.com/FaboBorgesLima/oop-node-rpg)
+[https://github.com/FaboBorgesLima/multiplatform-oop-rpg](https://github.com/FaboBorgesLima/multiplatform-oop-rpg)
 
 ## Game rules
 

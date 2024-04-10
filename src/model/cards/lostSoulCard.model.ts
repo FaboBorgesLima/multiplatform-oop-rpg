@@ -1,11 +1,10 @@
 import { BaseCard } from "../baseCard.model";
 import { Resources } from "../resources.model";
 
-export class RatCard extends BaseCard {
+export class LostSoulCard extends BaseCard {
     constructor() {
-        super("rat", "a rat made out of meat", new Resources(1, 0, 0, 1));
-
+        super("lost soul", "a lost soul", new Resources(1, 0, 0, 0));
         this.setDamage(1);
-        this.setInitialLife(2);
+        this.setLife(1);
     }
 }

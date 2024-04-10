@@ -1,14 +1,17 @@
 import { BaseCard } from "./baseCard.model";
+import { CardDeck } from "./cardDeck.model";
 import { Resources } from "./resources.model";
 import { Trench } from "./trench.model";
 
 export class Challenger {
     protected resources: Resources;
     protected trench: Trench;
+    protected deck: CardDeck;
 
-    constructor(resources: Resources, trench: Trench) {
+    constructor(resources: Resources, trench: Trench, deck: CardDeck) {
         this.resources = resources;
         this.trench = trench;
+        this.deck = deck;
     }
 
     toString(): string {
