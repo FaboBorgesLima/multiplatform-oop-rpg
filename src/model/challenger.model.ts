@@ -7,6 +7,7 @@ export class Challenger {
     protected resources: Resources;
     protected trench: Trench;
     protected deck: CardDeck;
+    protected cardsHand: BaseCard[] = [];
 
     constructor(resources: Resources, trench: Trench, deck: CardDeck) {
         this.resources = resources;
@@ -16,6 +17,10 @@ export class Challenger {
 
     toString(): string {
         return `${this.trench.toString()}\n${this.resources.toString()}`;
+    }
+
+    toTable(): string[][] {
+        return this.trench.toTable();
     }
 
     attack(): number[] {
@@ -58,7 +63,24 @@ export class Challenger {
         );
     }
 
-    buyCard(card: BaseCard, row: number, col: number): boolean {
+    addCardToDeck(cardName: string): void {
+        this.deck.addPossibleCard(cardName);
+    }
+
+    drawCardFromDeck(): void {
+        this.cardsHand.push(this.deck.getRandomCard());
+    }
+
+    getCardsOnHand(): BaseCard[] {
+        return this.cardsHand;
+    }
+
+    buyCard(posHandCards: number, row: number, col: number): boolean {
+        if (posHandCards >= this.cardsHand.length || posHandCards < 0)
+            return false;
+
+        const card = this.cardsHand[posHandCards];
+
         if (
             card.getPrice().isAllSmallerOrEqual(this.resources) &&
             this.resources.getSouls() > card.getPrice().getSouls() &&

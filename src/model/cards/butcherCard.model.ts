@@ -2,14 +2,12 @@ import { BaseCard } from "../baseCard.model";
 import { Resources } from "../resources.model";
 
 export class ButcherCard extends BaseCard {
+    protected price: Resources = new Resources(5, 0, 0, 0);
+    protected description: string = "a butcher";
+    protected name: string = "butcher";
+    protected damage: number = 0;
     constructor() {
-        super(
-            "butcher",
-            "a men that collect meat from living things for the war",
-            new Resources(5, 0, 0, 0)
-        );
-
-        this.setDamage(0);
+        super();
 
         this.setInitialLife(1);
 

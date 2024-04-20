@@ -1,68 +1,58 @@
 import { describe, expect, test } from "@jest/globals";
 import { BaseCard } from "../model/baseCard.model";
 import { Resources } from "../model/resources.model";
+import { LostSoulCard } from "../model/cards/lostSoulCard.model";
+import { RatCard } from "../model/cards/ratCard.model";
 
 describe("baseCard tests", () => {
-    const description = "description";
-    const name = "name";
-
-    class TestCard extends BaseCard {
-        constructor() {
-            super("name", "description", new Resources(1, 2, 3, 4));
-
-            this.setDamage(1);
-            this.setInitialLife(5);
-        }
-    }
-
     test("getters", () => {
-        const card = new TestCard();
+        const rat = new RatCard();
 
-        card.getGeneration();
+        rat.getGeneration();
 
-        expect(card.getDamage()).toBe(1);
+        expect(rat.getDamage()).toBe(1);
 
-        expect(card.getLife()).toBe(5);
+        expect(rat.getLife()).toBe(2);
 
-        expect(card.getInitialLife()).toBe(5);
+        expect(rat.getInitialLife()).toBe(2);
 
-        expect(card.getPrice().isAllEqual(new Resources(1, 2, 3, 4)));
+        expect(rat.getPrice().isAllEqual(new Resources(1, 0, 0, 1)));
 
-        expect(card.getDescription()).toBe(description);
-
-        expect(card.getName()).toBe(name);
+        expect(rat.getName()).toBe("rat");
     });
 
     test("recive damage", () => {
-        const card = new TestCard();
+        const rat1 = new RatCard();
 
-        card.reciveDamage(card.getDamage());
+        expect(rat1.getLife()).toBe(2);
 
-        expect(card.getLife()).toBe(4);
+        expect(rat1.reciveDamage(4)).toBe(2);
 
-        expect(card.reciveDamage(6)).toBe(2);
-
-        expect(card.getLife()).toBe(0);
+        expect(rat1.getLife()).toBe(0);
     });
 
     test("can die", () => {
-        const card = new TestCard();
+        const rat = new RatCard();
 
-        expect(card.getIsAlive()).toBeTruthy();
+        expect(rat.getIsAlive()).toBeTruthy();
 
-        card.reciveDamage(4);
+        rat.reciveDamage(1);
 
-        expect(card.getIsAlive()).toBeTruthy();
+        expect(rat.getIsAlive()).toBeTruthy();
 
-        card.reciveDamage(1);
+        rat.reciveDamage(1);
 
-        expect(card.getIsAlive()).toBeFalsy();
+        expect(rat.getIsAlive()).toBeFalsy();
     });
 
     test("set generation", () => {
         class TryGenerateSouls extends BaseCard {
+            protected name: string = "";
+            protected damage: number = 0;
+            protected price: Resources = new Resources(0, 0, 0, 0);
+            protected description: string = "";
             constructor() {
-                super(name, description, new Resources(0, 0, 0, 0));
+                super();
 
                 expect(
                     this.setGeneration(new Resources(1, 0, 0, 0))

@@ -14,6 +14,30 @@ export class Trench {
         return `${this.getLiveCards()} live cards`;
     }
 
+    public toTable(): string[][] {
+        const table: string[][] = [];
+
+        for (let col = 0; col < this.cardSet.length; col++) {
+            const rowArray: string[] = [];
+
+            for (let row = 0; row < this.cardSet[col].length; row++) {
+                const card = this.cardSet[col][row];
+
+                if (card)
+                    rowArray.push(
+                        card
+                            .toString()
+                            .replaceAll("\n", ",")
+                            .replaceAll(" ", "")
+                    );
+                else rowArray.push("empty card");
+            }
+            table.push(rowArray);
+        }
+
+        return table;
+    }
+
     private getLiveCards(): number {
         let liveCards = 0;
 

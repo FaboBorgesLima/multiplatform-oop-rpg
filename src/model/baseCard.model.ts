@@ -1,20 +1,16 @@
 import { Resources } from "./resources.model";
 
-export class BaseCard {
-    private name: string = "";
+export abstract class BaseCard {
+    protected abstract name: string;
     private initialLife: number = 0;
     private life: number = 0;
-    private damage: number = 0;
-    private price: Resources;
+    protected abstract damage: number;
+    protected abstract price: Resources;
     private generation: Resources = new Resources(0, 0, 0, 0);
-    private description: string = "";
+    protected abstract description: string;
     static readonly CARD_WIDTH = 40;
 
-    protected constructor(name: string, description: string, price: Resources) {
-        this.description = description;
-        this.name = name;
-        this.price = price;
-    }
+    protected constructor() {}
 
     /**
      *
