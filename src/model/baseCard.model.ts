@@ -83,16 +83,11 @@ export abstract class BaseCard {
         this.life = Math.max(Math.trunc(life), 0);
     }
 
-    protected setInitialLife(initialLife: number): boolean {
-        const truncatedInitialLife = Math.trunc(initialLife),
-            initialLifeIsGraterThanOne = truncatedInitialLife > 0;
+    protected setInitialLife(initialLife: number): void {
+        const truncatedInitialLife = Math.abs(Math.trunc(initialLife));
 
-        if (initialLifeIsGraterThanOne) {
-            this.initialLife = truncatedInitialLife;
-            this.life = truncatedInitialLife;
-        }
-
-        return initialLifeIsGraterThanOne;
+        this.initialLife = truncatedInitialLife;
+        this.life = truncatedInitialLife;
     }
 
     public getDamage(): number {

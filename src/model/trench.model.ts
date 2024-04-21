@@ -1,4 +1,5 @@
 import { BaseCard } from "./baseCard.model";
+import { CarcassCard } from "./cards/carcassCard.model";
 import { Resources } from "./resources.model";
 
 export class Trench {
@@ -54,7 +55,11 @@ export class Trench {
         const deck: CardSet = [];
 
         for (let i = 0; i < this.N_COLS; i++) {
-            const row = Array(this.N_ROWS);
+            const row: BaseCard[] = [];
+
+            for (let j = 0; j < this.N_ROWS; j++) {
+                row.push(new CarcassCard());
+            }
 
             deck.push(row);
         }
@@ -88,7 +93,7 @@ export class Trench {
         for (let row = 0; row < this.cardSet[col].length; row++) {
             const card = this.cardSet[col][row];
 
-            if (card) return card.getDamage();
+            if (card.getIsAlive()) return card.getDamage();
         }
 
         return attack;
@@ -99,7 +104,6 @@ export class Trench {
      * @param col
      * @returns the leftover attack and dead cards num
      *
-     * recives the attack and removes the dead cards from the col
      */
     private reciveAttackOnCol(col: number, attack: number): [number, number] {
         let leftoverAttack = attack,
@@ -108,13 +112,13 @@ export class Trench {
         for (let row = 0; row < this.cardSet[col].length; row++) {
             const card = this.cardSet[col][row];
 
-            if (card) {
-                leftoverAttack = card.reciveDamage(leftoverAttack);
+            const initialAttack = leftoverAttack;
 
-                if (!card.getIsAlive()) {
-                    this.cardSet[col][row] = undefined;
-                    deadCards++;
-                }
+            leftoverAttack = card.reciveDamage(leftoverAttack);
+
+            if (!card.getIsAlive() && initialAttack != leftoverAttack) {
+                this.cardSet[col][row] = new CarcassCard();
+                deadCards++;
             }
         }
 
@@ -147,7 +151,7 @@ export class Trench {
     hasAliveCard(): boolean {
         for (let col = 0; this.cardSet.length > col; col++) {
             for (let row = 0; this.cardSet[col].length > row; row++) {
-                if (this.cardSet[col][row]?.getIsAlive()) return true;
+                if (this.cardSet[col][row].getIsAlive()) return true;
             }
         }
 
@@ -169,11 +173,14 @@ export class Trench {
     }
 
     insertCard(card: BaseCard, row: number, col: number): boolean {
-        if (row < this.N_ROWS && col < this.N_COLS && !this.cardSet[col][row]) {
-            this.cardSet[col][row] = card;
-            return true;
+        if (row >= this.N_ROWS || row < 0 || col >= this.N_COLS || col < 0) {
+            return false;
         }
-        return false;
+
+        if (this.cardSet[col][row].getIsAlive()) return false;
+
+        this.cardSet[col][row] = card;
+        return true;
     }
 }
-type CardSet = (BaseCard | undefined)[][];
+type CardSet = BaseCard[][];
