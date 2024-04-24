@@ -21,18 +21,9 @@ export class Trench {
         for (let col = 0; col < this.cardSet.length; col++) {
             const rowArray: string[] = [];
 
-            for (let row = 0; row < this.cardSet[col].length; row++) {
-                const card = this.cardSet[col][row];
+            for (let row = 0; row < this.cardSet[col].length; row++)
+                rowArray.push(this.cardSet[col][row].getName());
 
-                if (card)
-                    rowArray.push(
-                        card
-                            .toString()
-                            .replaceAll("\n", ",")
-                            .replaceAll(" ", "")
-                    );
-                else rowArray.push("empty card");
-            }
             table.push(rowArray);
         }
 
@@ -44,7 +35,7 @@ export class Trench {
 
         for (let col = 0; col < this.cardSet.length; col++) {
             for (let row = 0; row < this.cardSet[col].length; row++) {
-                if (this.cardSet[col][row]) liveCards++;
+                if (this.cardSet[col][row].getIsAlive()) liveCards++;
             }
         }
 
