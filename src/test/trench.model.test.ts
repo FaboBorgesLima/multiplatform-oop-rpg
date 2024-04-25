@@ -98,4 +98,18 @@ describe("trench tests", () => {
 
         expect(trench.attack()).toEqual([0, 0, 0, 0]);
     });
+
+    test("hasAliveCards", () => {
+        const trench = new Trench();
+
+        expect(trench.hasAliveCard()).toBeFalsy();
+
+        trench.insertCard(new RatCard(), 0, 0);
+
+        expect(trench.hasAliveCard()).toBeTruthy();
+
+        trench.reciveAttack([10, 10, 10, 10]);
+
+        expect(trench.hasAliveCard()).toBeFalsy();
+    });
 });
