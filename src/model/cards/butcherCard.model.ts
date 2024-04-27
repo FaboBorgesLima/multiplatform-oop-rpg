@@ -6,11 +6,13 @@ export class ButcherCard extends BaseCard {
     protected description: string = "a butcher";
     protected name: string = "butcher";
     protected damage: number = 0;
-    constructor() {
+    constructor(life?: number) {
         super();
 
         this.setInitialLife(1);
 
         this.setGeneration(new Resources(0, 0, 0, 2));
+
+        if (life) this.setLife(life);
     }
 }

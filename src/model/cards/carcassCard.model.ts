@@ -7,8 +7,9 @@ export class CarcassCard extends BaseCard {
     protected price: Resources = new Resources(0, 0, 0, 0);
     protected description: string = "a dead carcass";
 
-    constructor() {
+    constructor(life?: number) {
         super();
         this.setInitialLife(0);
+        if (life) this.setLife(life);
     }
 }

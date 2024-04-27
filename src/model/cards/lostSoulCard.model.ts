@@ -6,8 +6,9 @@ export class LostSoulCard extends BaseCard {
     protected damage: number = 1;
     protected price: Resources = new Resources(1, 0, 0, 0);
     protected description: string = "a lost soul";
-    constructor() {
+    constructor(life?: number) {
         super();
-        this.setLife(1);
+
+        this.setInitialLife(1);
     }
 }

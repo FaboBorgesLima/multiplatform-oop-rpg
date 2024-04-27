@@ -6,9 +6,11 @@ export class RatCard extends BaseCard {
     protected damage: number = 1;
     protected price: Resources = new Resources(1, 0, 0, 1);
     protected description: string = "a rat";
-    constructor() {
+    constructor(life?: number) {
         super();
 
         this.setInitialLife(2);
+
+        if (life) this.setLife(life);
     }
 }
