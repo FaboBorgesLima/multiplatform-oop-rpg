@@ -1,8 +1,6 @@
 import { BaseCard } from "./baseCard.model";
 import { CardFactory } from "./cardFactory.model";
-import { ButcherCard } from "./cards/butcherCard.model";
 import { LostSoulCard } from "./cards/lostSoulCard.model";
-import { RatCard } from "./cards/ratCard.model";
 
 export class CardDeck {
     private possibleCardsNames: string[] = [];

@@ -11,7 +11,6 @@ export abstract class BaseCard {
     static readonly CARD_WIDTH = 40;
 
     protected constructor() {}
-
     /**
      *
      * @param generation can't have souls

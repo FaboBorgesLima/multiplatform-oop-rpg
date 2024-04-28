@@ -16,6 +16,6 @@ export class CardFactory {
             case "carcass":
                 return new CarcassCard(life);
         }
-        return new CarcassCard();
+        return new LostSoulCard(life);
     }
 }
