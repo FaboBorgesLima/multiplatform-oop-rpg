@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS resources (
 CREATE TABLE IF NOT EXISTS player (
     id_player INT PRIMARY KEY AUTO_INCREMENT,
     player_name VARCHAR(45) NOT NULL UNIQUE,
-    player_password CHAR(64) NOT NULL
+    player_password CHAR(64) NOT NULL,
+    player_email VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS buyable_card (
@@ -38,6 +39,7 @@ CREATE TABLE IF NOT EXISTS challenger_deck (
 
 CREATE TABLE IF NOT EXISTS battle_field (
     id_battle_field INT PRIMARY KEY AUTO_INCREMENT,
+    rounds INT NOT NULL,
     id_challenger1 INT NOT NULL,
     id_challenger2 INT NOT NULL,
     FOREIGN KEY (id_challenger1) REFERENCES challenger(id_challenger),
