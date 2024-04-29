@@ -82,4 +82,11 @@ export class Resources {
             this.meat <= resouces.meat
         );
     }
+
+    public clear(): void {
+        this.blood = 0;
+        this.bones = 0;
+        this.souls = 0;
+        this.meat = 0;
+    }
 }

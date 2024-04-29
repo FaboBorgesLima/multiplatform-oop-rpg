@@ -96,4 +96,16 @@ describe("resources tests", () => {
             )
         ).toBeTruthy();
     });
+
+    test("clear", () => {
+        const res = new Resources(1, 2, 3, 4);
+        const res1234 = new Resources(1, 2, 3, 4);
+        const res0 = new Resources(0, 0, 0, 0);
+
+        expect(res.isAllEqual(res1234)).toBeTruthy();
+
+        res.clear();
+
+        expect(res.isAllEqual(res0)).toBeTruthy();
+    });
 });
