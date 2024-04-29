@@ -1,7 +1,20 @@
+import { Challenger } from "./challenger.model";
+
 export class Player {
     protected name?: string;
     protected password?: string;
     protected email?: string;
+
+    constructor(
+        name: string,
+        password: string,
+        email: string,
+        protected challenger: Challenger
+    ) {
+        this.setName(name);
+        this.setPassword(password);
+        this.setEmail(email);
+    }
 
     protected hasSpecialChars(str: string): boolean {
         return /[^A-Za-z0-9]/g.test(str);
@@ -36,5 +49,9 @@ export class Player {
         this.email = email;
 
         return true;
+    }
+
+    getChallenger(): Challenger {
+        return this.challenger;
     }
 }

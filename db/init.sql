@@ -7,13 +7,6 @@ CREATE TABLE IF NOT EXISTS resources (
     souls INT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS player (
-    id_player INT PRIMARY KEY AUTO_INCREMENT,
-    player_name VARCHAR(45) NOT NULL UNIQUE,
-    player_password CHAR(64) NOT NULL,
-    player_email VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS buyable_card (
     id_buyable_card INT PRIMARY KEY AUTO_INCREMENT,
     card_name VARCHAR(45) NOT NULL UNIQUE
@@ -28,6 +21,17 @@ CREATE TABLE IF NOT EXISTS challenger (
 );
 
 -- layer 3
+
+CREATE TABLE IF NOT EXISTS player (
+    id_player INT PRIMARY KEY AUTO_INCREMENT,
+    player_name VARCHAR(45) NOT NULL UNIQUE,
+    player_password CHAR(64) NOT NULL,
+    player_email VARCHAR(255) NOT NULL,
+    challenger INT NOT NULL UNIQUE,
+    FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger)
+);
+
+-- layer 4
 
 CREATE TABLE IF NOT EXISTS challenger_deck (
     id_challenger_deck INT PRIMARY KEY AUTO_INCREMENT,
@@ -52,15 +56,7 @@ CREATE TABLE IF NOT EXISTS trench (
     FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger)
 );
 
-CREATE TABLE IF NOT EXISTS player_challenger (
-    id_player_challenger INT PRIMARY KEY AUTO_INCREMENT,
-    id_challenger INT NOT NULL,
-    id_player INT NOT NULL,
-    FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger),
-    FOREIGN KEY (id_player) REFERENCES player(id_player)
-);
-
--- layer 4
+-- layer 5
 
 CREATE TABLE IF NOT EXISTS challenger_deck_card (
     id_challenger_deck_card INT PRIMARY KEY AUTO_INCREMENT,
