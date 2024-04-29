@@ -173,5 +173,9 @@ export class Trench {
         this.cardSet[col][row] = card;
         return true;
     }
+
+    clear(): void {
+        this.cardSet = this.createEmptyCardSet();
+    }
 }
 type CardSet = BaseCard[][];

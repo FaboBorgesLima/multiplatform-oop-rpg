@@ -112,4 +112,16 @@ describe("trench tests", () => {
 
         expect(trench.hasAliveCard()).toBeFalsy();
     });
+
+    test("clear", () => {
+        const trench = new Trench();
+
+        trench.insertCard(new RatCard(), 0, 0);
+
+        expect(trench.hasAliveCard()).toBeTruthy();
+
+        trench.clear();
+
+        expect(trench.hasAliveCard()).toBeFalsy();
+    });
 });
