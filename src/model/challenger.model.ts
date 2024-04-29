@@ -96,4 +96,10 @@ export class Challenger {
 
         return false;
     }
+
+    clear(): void {
+        this.trench.clear();
+
+        this.resources.clear();
+    }
 }
