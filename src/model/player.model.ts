@@ -1,19 +1,38 @@
+import { createHmac } from "crypto";
 import { Challenger } from "./challenger.model";
 
 export class Player {
     protected name?: string;
     protected password?: string;
     protected email?: string;
+    private readonly hash =
+        "0Qu53RRQ1I93b1GkTkkLtmzLxDMW3OUoLMGF0fVl4eMwiJrcY9sIWyaU540zYrzpM71mo3I3op9RYMeRo01wKedYTKa5DUPMYDBI";
 
     constructor(
         name: string,
-        password: string,
         email: string,
-        protected challenger: Challenger
+        protected challenger: Challenger,
+        password?: string
     ) {
         this.setName(name);
-        this.setPassword(password);
+        if (password) this.setPassword(password);
         this.setEmail(email);
+    }
+
+    getName(): string | undefined {
+        return this.name;
+    }
+
+    getEmail(): string | undefined {
+        return this.email;
+    }
+
+    allOk(): boolean {
+        return (
+            this.password != undefined &&
+            this.name != undefined &&
+            this.email != undefined
+        );
     }
 
     protected hasSpecialChars(str: string): boolean {
@@ -32,6 +51,13 @@ export class Player {
 
         this.name = name;
         return true;
+    }
+
+    getHashPassword(): string | undefined {
+        if (this.password)
+            return createHmac("sha256", this.hash)
+                .update(this.password)
+                .digest("base64");
     }
 
     setPassword(password: string): boolean {
