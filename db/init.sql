@@ -4,12 +4,8 @@ CREATE TABLE IF NOT EXISTS resources (
     id_resources INT PRIMARY KEY AUTO_INCREMENT,
     bones INT NOT NULL,
     meat INT NOT NULL,
-    souls INT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS buyable_card (
-    id_buyable_card INT PRIMARY KEY AUTO_INCREMENT,
-    card_name VARCHAR(45) NOT NULL UNIQUE
+    souls INT NOT NULL,
+    blood INT NOT NULL
 );
 
 -- layer 2
@@ -27,18 +23,15 @@ CREATE TABLE IF NOT EXISTS player (
     player_name VARCHAR(45) NOT NULL UNIQUE,
     player_password CHAR(64) NOT NULL,
     player_email VARCHAR(255) NOT NULL,
-    challenger INT NOT NULL UNIQUE,
+    id_challenger INT NOT NULL UNIQUE,
     FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger)
 );
 
--- layer 4
-
 CREATE TABLE IF NOT EXISTS challenger_deck (
     id_challenger_deck INT PRIMARY KEY AUTO_INCREMENT,
-    id_buyable_card INT NOT NULL,
     id_challenger INT NOT NULL,
-    FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger),
-    FOREIGN KEY (id_buyable_card) REFERENCES buyable_card(id_buyable_card)
+    card_name VARCHAR(45) NOT NULL,
+    FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger)
 );
 
 CREATE TABLE IF NOT EXISTS battle_field (
@@ -50,28 +43,20 @@ CREATE TABLE IF NOT EXISTS battle_field (
     FOREIGN KEY (id_challenger2) REFERENCES challenger(id_challenger)
 );
 
-CREATE TABLE IF NOT EXISTS trench (
-    id_trench INT PRIMARY KEY AUTO_INCREMENT,
-    id_challenger INT NOT NULL,
-    FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger)
-);
-
--- layer 5
+-- layer 4
 
 CREATE TABLE IF NOT EXISTS challenger_deck_card (
     id_challenger_deck_card INT PRIMARY KEY AUTO_INCREMENT,
     id_challenger INT NOT NULL,
-    id_challenger_deck INT NOT NULL,
-    FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger),
-    FOREIGN KEY (id_challenger_deck) REFERENCES challenger_deck(id_challenger_deck)
+    card_name VARCHAR(45) NOT NULL
 );
 
-
-CREATE TABLE IF NOT EXISTS trench_card (
-    id_trench_card INT PRIMARY KEY AUTO_INCREMENT,
-    id_challenger_deck INT NOT NULL,
-    game_card_col TINYINT NOT NULL,
-    game_card_row TINYINT NOT NULL,
+CREATE TABLE IF NOT EXISTS trench (
+    card_col TINYINT NOT NULL,
+    card_row TINYINT NOT NULL,
+    id_challenger INT NOT NULL,
     life INT NOT NULL,
-    FOREIGN KEY (id_challenger_deck) REFERENCES challenger_deck(id_challenger_deck)
+    card_name VARCHAR(45) NOT NULL,
+    PRIMARY KEY (id_challenger , card_col  ,card_row  ),
+    FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger)
 );
