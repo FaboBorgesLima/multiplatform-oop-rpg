@@ -30,6 +30,10 @@ export class Trench {
         return table;
     }
 
+    public getCardSet(): BaseCard[][] {
+        return this.cardSet;
+    }
+
     private getLiveCards(): number {
         let liveCards = 0;
 
