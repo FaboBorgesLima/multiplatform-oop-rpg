@@ -1,8 +1,9 @@
 import { Player } from "./player.model";
+import { PlayerInStorage } from "./playerInStorage.model";
 
-export interface StoragePlayerI {
-    create(player: Player): Promise<Player | undefined>;
-    update(player: Player): Promise<Player | undefined>;
-    read(email: string, password: string): Promise<Player | undefined>;
-    delete(player: Player): Promise<Player | undefined>;
+export interface PlayerStorageI {
+    create(player: Player): Promise<PlayerInStorage | undefined>;
+    update(player: PlayerInStorage): Promise<PlayerInStorage | undefined>;
+    read(email: string, password: string): Promise<PlayerInStorage | undefined>;
+    delete(player: PlayerInStorage): Promise<boolean>;
 }
