@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS player (
     player_password CHAR(64) NOT NULL,
     player_email VARCHAR(255) NOT NULL,
     id_challenger INT NOT NULL UNIQUE,
+    api_key CHAR(64),
+    last_logged_in DATE,
     FOREIGN KEY (id_challenger) REFERENCES challenger(id_challenger)
 );
 

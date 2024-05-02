@@ -7,6 +7,7 @@ import { Challenger } from "./challenger.model";
 import { Resources } from "./resources.model";
 import { Trench } from "./trench.model";
 import { CardDeck } from "./cardDeck.model";
+import { createHmac, randomBytes } from "crypto";
 
 export class PlayerMysql implements PlayerStorageI {
     constructor(private conn: Connection) {}
@@ -36,14 +37,31 @@ export class PlayerMysql implements PlayerStorageI {
             new CardDeck()
         );
 
+        const apiKey = this.random256Hash();
+
         const [createPlayer] = await this.conn.query<ResultSetHeader>(
-            "INSERT INTO player (player_name, player_password, player_email, id_challenger) VALUES (?,?,?,?)",
-            [name, hashPassword, email, createChallenger.insertId]
+            "INSERT INTO player (player_name, player_password, player_email, id_challenger, last_logged_in ,api_key) VALUES (?,?,?,?,?,?)",
+            [
+                name,
+                hashPassword,
+                email,
+                createChallenger.insertId,
+                new Date(),
+                apiKey,
+            ]
         );
 
         return new PlayerInMysql(
             createPlayer.insertId,
+            apiKey,
+            new Date(),
             new Player(name, email, challenger)
+        );
+    }
+
+    private random256Hash(): string {
+        return createHmac("sha256", randomBytes(256).toString("hex")).digest(
+            "base64"
         );
     }
 

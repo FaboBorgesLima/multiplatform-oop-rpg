@@ -1,7 +1,12 @@
 import { Player } from "./player.model";
 
 export abstract class PlayerInStorage {
-    constructor(protected id: number, protected player: Player) {}
+    constructor(
+        protected id: number,
+        protected apiKey: string,
+        protected lastLoggedIn: Date,
+        protected player: Player
+    ) {}
 
     getPlayer(): Player {
         return this.player;
@@ -9,5 +14,9 @@ export abstract class PlayerInStorage {
 
     getId(): number {
         return this.id;
+    }
+
+    getAPIkey(): string {
+        return this.apiKey;
     }
 }
