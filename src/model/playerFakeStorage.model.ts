@@ -8,6 +8,22 @@ import { Resources } from "./resources.model";
 import { Trench } from "./trench.model";
 
 export class PlayerFakeStorage implements PlayerStorageI {
+    async readAPIKey(apiKey: string): Promise<PlayerInStorage | undefined> {
+        return new PlayerInFakeStorage(
+            0,
+            "",
+            new Date(),
+            new Player(
+                "fake",
+                "fake@fake.com",
+                new Challenger(
+                    new Resources(0, 0, 0, 0),
+                    new Trench(),
+                    new CardDeck()
+                )
+            )
+        );
+    }
     async create(player: Player): Promise<PlayerInStorage | undefined> {
         console.log("create", player);
 

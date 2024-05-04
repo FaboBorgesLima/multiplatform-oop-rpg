@@ -8,9 +8,35 @@ import { Resources } from "./resources.model";
 import { Trench } from "./trench.model";
 import { CardDeck } from "./cardDeck.model";
 import { createHmac, randomBytes } from "crypto";
+import { PlayerMysqlSchemaI } from "./playerMysqlScrema.interface";
 
 export class PlayerMysql implements PlayerStorageI {
     constructor(private conn: Connection) {}
+
+    async readAPIKey(apiKey: string): Promise<PlayerInStorage | undefined> {
+        const [[player]] = await this.conn.query<PlayerMysqlSchemaI[]>(
+            "SELECT * FROM player WHERE api_key=? LIMIT 1",
+            apiKey
+        );
+
+        if (player == undefined) return;
+
+        // TODO : make it get all challenger data
+        return new PlayerInMysql(
+            player.id_player,
+            player.api_key,
+            player.last_logged_in,
+            new Player(
+                player.player_name,
+                player.player_email,
+                new Challenger(
+                    new Resources(0, 0, 0, 0),
+                    new Trench(),
+                    new CardDeck()
+                )
+            )
+        );
+    }
     async create(player: Player): Promise<PlayerInStorage | undefined> {
         const name = player.getName(),
             hashPassword = player.getHashPassword(),
